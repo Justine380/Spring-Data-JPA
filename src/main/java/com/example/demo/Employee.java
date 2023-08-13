@@ -3,6 +3,12 @@ package com.example.demo;
 import javax.persistence.*;
 
 @Entity(name="Employee")
+@Table(
+        name = "Employee",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "employee_email_unique", columnNames = "email")
+        }
+)
 public class Employee {
     @Id
     @SequenceGenerator(
@@ -37,9 +43,7 @@ public class Employee {
     @Column(
             name = "email",
             nullable = false,
-            columnDefinition = "TEXT",
-            unique = true
-
+            columnDefinition = "TEXT"
     )
     private String email;
 
@@ -49,8 +53,7 @@ public class Employee {
     )
     private Integer age;
 
-    public Employee(Long id, String firstName, String lastName, String email, Integer age) {
-        this.id = id;
+    public Employee(String firstName, String lastName, String email, Integer age) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
